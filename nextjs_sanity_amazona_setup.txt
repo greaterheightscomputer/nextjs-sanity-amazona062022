@@ -1,0 +1,68 @@
+Tools
+Vs code
+node.js
+git
+
+Technologies
+1. Nextjs - is a react framework for creating production ready website
+2. React Hook
+3. Sanity CMS - to handle the backend of the web app
+4. Payment gateway- Paypal and PayStack 
+5. Deployment is handle by Vercel Cloud Provider
+
+check the following version
+- C:\ComputerD\nextjs_sanity-amazona062022> node --version
+v14.18.1
+- C:\ComputerD\nextjs_sanity-amazona062022> npm --version
+8.7.0
+- C:\ComputerD\nextjs_sanity-amazona062022> git --version
+git version 2.21.0.windows.1
+
+Let configure Vscode to enable code smarter with the text edit
+- click on extension icon to install the following
+1. Prettier - Code formatter extension
+  * click manage icon, click on Settings, 
+  * search for defaultformater, select Pettier in the dropdown box
+  * search for formatonsave, then check format a file on save
+  * search for singlequote, then check Prettier: Single Quote
+  * brack colorizer, press ctrl + p, search >json, select Preference: Open Settings(JSON)
+ then type this "editor.bracketPairColorization.enabled": true, right after "prettier.singleQuote": true,
+2. ESLint - its show error in our code
+3. JavaScript (ES6) code snippets by charalampos Karypidis - This extension contains code snippets for JavaScript in ES6 syntax for Vs Code editor (supports both JavaScript and TypeScript).
+4. ES7+ React/Redux/React-Native snippets by dsznajder - its enable us to automatically generate code for react component by typing rfc 
+
+Create Next App
+- Create Next App by going to nextjs.org/docs/api-reference/create-next-app
+- copy this npx create-next-app@latest to create next app on your terminal
+- type code . to open your newly created next app on a new vscode.
+- start up the dev server like this 
+C:\ComputerD\nextjs-sanity-amazona062022> yarn dev OR
+C:\ComputerD\nextjs-sanity-amazona062022> npm run dev
+- let install the following dependencies 
+* @mui/material @mui/styles @mui/icons-material - for style the nextjs app
+* @emotion/styled @emotion/server @emotion/react - to handle the cache in the nextjs app like this
+C:\ComputerD\nextjs-sanity-amazona062022>npm install @emotion/react@11.7.1 @emotion/server@11.4.0 @emotion/styled@11.6.0
+C:\ComputerD\nextjs-sanity-amazona062022>npm install @mui/icons-material@5.4.1 @mui/material@5.4.1 @mui/styles@5.4.1 --force
+
+- create _document.js file inside pages folder inorder to add some content on the head tags of all the react components created in this app. The content added onto the head tags will change the way will render our react components, its will include material UI in the process of render components in the browser.
+
+- open _app.js file inorder to add content that we be use throughtout the app body.
+
+- open index.js for modification.
+* change the content of the title tags in the Head tags
+* change the content of the meta tag 
+* change the icon by google search fonts.google.com/icons, click on Shoppign Cart Checkout icon, then download the SVG
+* past the SVG icon inside public folder
+* remove the following 
+1. import Image from 'next/image'; 
+   import styles from '../styles/Home.module.css'; and its usage
+2. main and footer tags
+
+- add <Typography component="h1" variant="h1">
+        Sanity Amazona
+      </Typography>
+* component="h1" means h1 tags and variant="h1" means class selector h1
+* click on Elements tags to view the material ui. This means the material UI install and configure is working fine. 
+
+- Push code to Github by login or signup if you are a new user.
+- press ctrl + shift p and type push to github
