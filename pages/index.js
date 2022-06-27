@@ -1,24 +1,45 @@
-import { Typography } from '@mui/material';
-import Head from 'next/head';
+import { Alert, CircularProgress, Grid, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
+import Layout from '../components/Layout';
+import ProductItem from '../components/ProductItem';
+import client from '../utils/client';
 
 export default function Home() {
-  return (
-    <div>
-      <Head>
-        <title>Sanity Amazona</title>
-        <meta
-          name="description"
-          content="The ecommerce website by next and sanity"
-        />
-        <link
-          rel="icon"
-          href="/shopping_cart_checkout_FILL0_wght400_GRAD0_opsz48.svg"
-        />
-      </Head>
+  // return <Layout>List Products</Layout>;
+  const [state, setState] = useState({
+    products: [],
+    error: '',
+    loading: true,
+  });
+  const { loading, error, products } = state; //destructure state
 
-      <Typography component="h1" variant="h1">
-        Sanity Amazona
-      </Typography>
-    </div>
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const products = await client.fetch(`*[_type == "product"]`); //this is sanity query languarge `*[_type == "product"]`
+        setState({ products, loading: false });
+      } catch (err) {
+        setState({ loading: false, error: err.message });
+      }
+    };
+    fetchData();
+  }, []);
+  return (
+    <Layout>
+      {loading ? (
+        <CircularProgress />
+      ) : error ? (
+        <Alert variant="danger">{error}</Alert>
+      ) : (
+        <Grid container spacing={3}>
+          {products.map((product) => (
+            <Grid item md={4} key={product._id}>
+              {/*<Typography>{product.name}</Typography>*/}
+              <ProductItem product={product} />
+            </Grid>
+          ))}
+        </Grid>
+      )}
+    </Layout>
   );
 }

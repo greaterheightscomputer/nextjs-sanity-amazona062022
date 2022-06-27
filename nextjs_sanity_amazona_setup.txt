@@ -65,4 +65,172 @@ C:\ComputerD\nextjs-sanity-amazona062022>npm install @mui/icons-material@5.4.1 @
 * click on Elements tags to view the material ui. This means the material UI install and configure is working fine. 
 
 - Push code to Github by login or signup if you are a new user.
-- press ctrl + shift p and type push to github
+- C:\ComputerD\nextjs-sanity-amazona062022> git init
+- C:\ComputerD\nextjs-sanity-amazona062022> git status
+- C:\ComputerD\nextjs-sanity-amazona062022> git add .
+- C:\ComputerD\nextjs-sanity-amazona062022> git commit -m "sanity-amazona 1"
+- C:\ComputerD\nextjs-sanity-amazona062022> git remote add origin git@github.com:greaterheightscomputer/nextjs-sanity-amazona062022.git
+- C:\ComputerD\nextjs-sanity-amazona062022> git branch -M main
+- C:\ComputerD\nextjs-sanity-amazona062022> git push -u origin main
+
+Create Website Layout
+1. Add header
+2. Add main
+3. Add footer
+- create components folder in the root folder
+- create components/Layout.js file which is the wrapper for styling all the other component in this app.
+- let setup components/Layout.js file 
+- let use components/Layout.js file inside pages/index.js file 
+- open index.js file then remove the content inside index.js from the root div tags  
+- use Layout component inside index.js file 
+- create utils folder in the root folder 
+- create classes.js file in utils folder inorder to properly set the layout of the app
+- setup classes.js file and use classes object in Layout component like this 
+<AppBar position="static" sx={classes.appbar}>
+- import classes from '../utils/classes'; onto Layout.js file 
+- let checkout the result on the browser
+- click on Elements tab you will see the following
+<header></header>
+<main></main>
+<footer></footer>
+
+Sanity cms
+- go to jamstack.org/headless-cms/sanity
+- Sanity.io is the platform for strctured content. Sanity will be use to save and retrival data for this e-commerce.
+ Connect to Sanity.io
+   1. install sanity
+   2. initialize sanity
+   3. create product model
+   4. insert sample data to product model
+- go to sanity.io, click on Get started
+OR 
+- go to sanity.io/codingwithbasir to get started with the boosted free plan
+- copy this npm install -g @sanity/cli  and past its onto the terminal
+- copy this sanity init --coupon codingwithbasir and past its onto the terminal 
+* for a new user, you will ask to login with Google Account
+* Project name: sanity-amazona
+* Use the default dataset configuration? (Y/n) press enter to choice Y
+*  Project output path: sanity
+* use arrow key to select  Clean project with no predefined schemas 
+- after successfull installation of sanity then open another terminal and  change directory like this
+C:\ComputerD\nextjs-sanity-amazona062022> cd sanity
+C:\ComputerD\nextjs-sanity-amazona062022\sanity> 
+- fix the issue with source control, open .gitignore file and change the node_modules from this 
+/node_modules to this node_modules by doing this we have ignore the node_module inside the root folder and sanity folder as well.
+- startup sanity studio like this 
+C:\ComputerD\nextjs-sanity-amazona062022\sanity> sanity start
+- control click on this url Content Studio successfully compiled! Go to http://localhost:3333
+- its return this message on the browser
+We’ll generate a UI here as soon as you build your first schema.
+- next is to go and create a schema called product by clicking on sanity/schemas
+- create product.js file inside sanity/schemas folder
+- setup product schema
+- open schemas/schema.js to use product schema 
+- type product inside  types: schemaTypes.concat([]), 
+- import product from './product'; onto schemas/schema.js file 
+- back to the browser to view the product schema rendered on the browser
+- click on Product, click icon inorder to add document onto Product schema
+- create images folder inside public folder then copy all the images needed onto the images folder
+- add values onto the sanity document
+* Add 1st Product
+Name: Free Shirt
+Price: 70
+Image: upload the first image
+Description: A popular shirt
+Slug: free-shirt
+Brand: Nike
+Category: Shirts
+Rating: 4.5
+NumReviews: 10
+CountInStock: 20
+click on Publish to save the document onto sanity dataset which cloud base database
+* Add 2nd Product
+Name: Fit Shirt
+Price: 80
+Image: upload the second image
+Description: A great shirt
+Slug: fit-shirt
+Brand: Adidas
+Category: Shirts
+Rating: 4.2
+NumReviews: 30
+CountInStock: 10
+* Add 3rd Product
+Name: Golf Pants
+Price: 90
+Image: upload the third image
+Description: Smart looking pants
+Slug: golf-pants
+Brand: Oliver
+Category: Pants
+Rating: 4.6
+NumReviews: 12
+CountInStock: 15
+* Add 4th Product
+Name: Fit Pants
+Price: 150
+Image: upload the forth image
+Description: A popular pants
+Slug: fit-pants
+Brand: Casely
+Category: Pants
+Rating: 3.6
+NumReviews: 40
+CountInStock: 30
+
+List Products
+1. add localhost:3000 to the CORS origins in sanity
+2. fetch products from sanity
+3. render them in the screen
+- add localhost:3000 to the CORS origins in sanity by going to https://www.sanity.io/manage
+- click on sanity-amazona project 
+- click on API 
+- click on Add CORS origin button
+- enter http://localhost:3000  onto Origin input field
+- check Allow credentials and click on Save button
+- by setting the above we can now send ajax request from next.js to sanity cms which is backend
+- install @sanity/client library inside root folder inorder to connect next.js with sanity dataset like this
+ C:\ComputerD\nextjs-sanity-amazona062022> npm install @sanity/client --force
+- create client.js inside utils folder and setup client.js file
+- import client from '@sanity/client'; onto utils/client.js file
+- create config.js file inside utils folder and setup config.js file
+- copy PROJECT ID by going back to sanity.io/manage/personal then past its inside config.js file
+- import config from './config'; onto client.js file 
+- open pages/index.js to use client method inorder to implement useEffect() method to fetch data from sanity dataset
+- import client from '../utils/client'; onto index.js file
+- use sanity queries language to fetch data from sanity dataset
+- for more info on sanity queries language go to sanity.io/docs/how-queries-work like this 
+ const products = await client.fetch(`*[_type == "product"]`);
+- use useState() react hook method to update the fetch product from sanity dataset.
+- use setState() method inside useEffect() method 
+- use loading, error and products properties in the return section of Home component of index.js file
+- remove import Head from 'next/head'; from index.js file 
+- make sure that the frontent and backend server is startup like this
+ * for frontent -> C:\ComputerD\nextjs-sanity-amazona062022> npm run dev
+ * for backend -> C:\ComputerD\nextjs-sanity-amazona062022\sanity> sanity start 
+- click browser Network tab click on the following to view their content
+ * Headers tab to view the endpoint like this
+ Request URL: https://xybrcyhu.apicdn.sanity.io/v2021-08-31/data/query/production?query=*%5B_type%20%3D%3D%20%22product%22%5D
+ * Payload tab to view the payload object like this
+   query: *[_type == "product"]
+ * Preview tab to view the return result object like this
+  result: [{_createdAt: "2022-06-26T16:16:58Z", _id: "3c379d4c-faee-4a90-bedd-b39301d9d6ab",…},…]
+   0: {_createdAt: "2022-06-26T16:16:58Z", _id: "3c379d4c-faee-4a90-bedd-b39301d9d6ab",…}
+   1: {_createdAt: "2022-06-26T16:11:07Z", _id: "49598d16-a3e8-4c9f-b187-5ae777724ae9",…}
+   2: {_createdAt: "2022-06-26T16:23:06Z", _id: "94d73134-069b-46c5-9c2d-0aac18e3cfb8",…}
+   3: {_createdAt: "2022-06-26T16:27:03Z", _id: "9a3974d2-3999-4baf-bd6a-b133463a8504",…}
+- create ProductItem.js file in components folder inorder to create ProductItem component to render the products on the Index.js file
+- setup ProductItem.js file by type rfc
+- install image-url library in the root folder like this
+C:\ComputerD\nextjs-sanity-amazona062022> npm install @sanity/image-url --force
+- create image.js file inside utils folder inorder to fetch image from sanity dataset
+- use the image-url library inside utils/image.js file 
+- use urlForThumbnail function inside ProductItem.js file 
+
+
+
+
+
+
+
+
