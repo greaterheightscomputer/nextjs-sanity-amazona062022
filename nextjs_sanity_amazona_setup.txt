@@ -226,6 +226,35 @@ C:\ComputerD\nextjs-sanity-amazona062022> npm install @sanity/image-url --force
 - create image.js file inside utils folder inorder to fetch image from sanity dataset
 - use the image-url library inside utils/image.js file 
 - use urlForThumbnail function inside ProductItem.js file 
+- use ProductItems component in index.js file inplace of <Typography>{product.name}</Typography>
+- let checkout the output on the browser
+
+- Push code to Github 
+- C:\ComputerD\nextjs-sanity-amazona062022> git init
+- C:\ComputerD\nextjs-sanity-amazona062022> git status
+- C:\ComputerD\nextjs-sanity-amazona062022> git add .
+- C:\ComputerD\nextjs-sanity-amazona062022> git commit -m "sanity-amazona 2"
+- C:\ComputerD\nextjs-sanity-amazona062022> git push -u origin main
+
+Create Product Details Screen
+   1. add [slug].js to product folder
+   2. create component
+   3. get slug from the url
+   4. fetch product from sanity client
+   5. render product image, info
+   6. show add to cart button
+- create product folder inside pages folder
+- create [slug].js file inside pages/product folder inorder to achieve dynamic routing with next.js 
+- setup [slug].js file
+- add sx={classes.section} onto the 2nd <Box> component inside [slug].js file 
+- create urlFor() function in utils/image.js file 
+- import { urlFor } from '../../utils/image'; onto [slug].js
+- add "cdn.sanity.io" hostname onto next.config.js like this
+  images: {
+    domains: ['cdn.sanity.io'],
+  },
+- stop and restartup next.js web server like this 
+C:\ComputerD\nextjs-sanity-amazona062022> npm run dev
 
 
 
