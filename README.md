@@ -37,3 +37,7 @@
    4. fetch product from sanity client
    5. render product image, info
    6. show add to cart button
+9. Create Dark and Light Mode
+   1. define Context, Store and reducer
+   2. set darkMode flag
+   3. use it on layout

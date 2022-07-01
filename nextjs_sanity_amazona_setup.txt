@@ -228,7 +228,6 @@ C:\ComputerD\nextjs-sanity-amazona062022> npm install @sanity/image-url --force
 - use urlForThumbnail function inside ProductItem.js file 
 - use ProductItems component in index.js file inplace of <Typography>{product.name}</Typography>
 - let checkout the output on the browser
-
 - Push code to Github 
 - C:\ComputerD\nextjs-sanity-amazona062022> git init
 - C:\ComputerD\nextjs-sanity-amazona062022> git status
@@ -255,7 +254,46 @@ Create Product Details Screen
   },
 - stop and restartup next.js web server like this 
 C:\ComputerD\nextjs-sanity-amazona062022> npm run dev
+- Push code to Github 
+- C:\ComputerD\nextjs-sanity-amazona062022> git init
+- C:\ComputerD\nextjs-sanity-amazona062022> git status
+- C:\ComputerD\nextjs-sanity-amazona062022> git add .
+- C:\ComputerD\nextjs-sanity-amazona062022> git commit -m "sanity-amazona 3"
+- C:\ComputerD\nextjs-sanity-amazona062022> git push -u origin main
 
+Create Dark and Light Mode
+   1. define Context, Store and reducer
+   2. set darkMode flag
+   3. use it on layout
+- create Store.js file inside utils folder inorder to setup store with Context API
+- install js-cookie in the root terminal to save the type of mode choose by the user like this 
+C:\ComputerD\nextjs-sanity-amazona062022> npm install js-cookie --force
+- use the js-cookie in utils/Store.js file
+- setup Store.js file 
+- use the return <Store.Provider> component inside pages/_app.js file this will allow all the components in the app to have access to Context Api Store.
+like this 
+return (
+    <CacheProvider value={emotionCache}>
+      <StoreProvider>
+        <Component {...pageProps} />;
+      </StoreProvider>
+    </CacheProvider>
+  );
+- open components/Layout.js file to add useContext() react hooks method right before theme object inorder to store and fetch data from Context Api store like this
+const { state, dispatch } = useContext(Store);
+const { darkMode } = state;
+- use the destructure darkMode variable inside palette object of theme object like this 
+- let add switch button onto header part of the app by going to <ThemeProvider> component then add Box component right inside Toolbar component then move NextLink component inside Box component like this 
+<Box display="flex" alignItems="center">
+   <NextLink href="/" passHref>
+    {/* passHref props enable NextLink component to href value onto  Link component*/}
+        <Link>
+          <Typography sx={classes.brand}>amazona</Typography>
+        </Link>
+    </NextLink>
+</Box>
+- right after the above Box component added onto <ThemeProvider> component add Box component with Switch component nested inside it.
+- let implement darkModeChangeHandler function inside Switch component right before return section.
 
 
 
