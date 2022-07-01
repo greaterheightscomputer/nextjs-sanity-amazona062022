@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import client from '../../utils/client';
 import Layout from '../../components/Layout';
 import {
@@ -15,12 +15,21 @@ import {
   Typography,
 } from '@mui/material';
 import NextLink from 'next/link';
+import { useSnackbar } from 'notistack';
 import classes from '../../utils/classes';
 import Image from 'next/image';
-import { urlFor } from '../../utils/image';
+import { urlFor, urlForThumbnail } from '../../utils/image';
+import axios from 'axios';
+import { Store } from '../../utils/Store';
+import Cookies from 'js-cookie';
 
 export default function ProductScreen(props) {
   const { slug } = props; //props is coming from predefined getServerSideProps() function
+  const {
+    state: { cart },
+    dispatch,
+  } = useContext(Store);
+  const { enqueueSnackbar } = useSnackbar();
   const [state, setState] = useState({
     product: null,
     loading: true,
@@ -42,6 +51,33 @@ export default function ProductScreen(props) {
     };
     fetchData();
   }, [setState, slug, state]);
+
+  const addToCartHandler = async () => {
+    const existItem = cart.cartItems.find((x) => x._id === product._id); //existing item
+    const quantity = existItem ? existItem.quantity + 1 : 1;
+    const { data } = await axios.get(`/api/products/${product._id}`);
+    if (data.countInStock < quantity) {
+      enqueueSnackbar('Sorry. Product is out of stock', { variant: 'error' });
+      return;
+    }
+    //else
+    dispatch({
+      type: 'CART_ADD_ITEM',
+      payload: {
+        _key: product._id,
+        name: product.name,
+        countInStock: product.countInStock,
+        slug: product.slug.current,
+        price: product.price,
+        image: urlForThumbnail(product.image),
+        quantity,
+      },
+    });
+    console.log(Cookies.get('cartItems'));
+    enqueueSnackbar(`${product.name} added to the cart`, {
+      variant: 'success',
+    });
+  };
 
   //title={product?.title} means if product is null don't raise an error just return null
   return (
@@ -121,7 +157,11 @@ export default function ProductScreen(props) {
                     </Grid>
                   </ListItem>
                   <ListItem>
-                    <Button fullWidth variant="contained">
+                    <Button
+                      onClick={addToCartHandler}
+                      fullWidth
+                      variant="contained"
+                    >
                       Add to cart
                     </Button>
                   </ListItem>

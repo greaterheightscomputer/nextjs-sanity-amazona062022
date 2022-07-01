@@ -254,7 +254,7 @@ Create Product Details Screen
   },
 - stop and restartup next.js web server like this 
 C:\ComputerD\nextjs-sanity-amazona062022> npm run dev
-- Push code to Github 
+- Push code to Github Remote 
 - C:\ComputerD\nextjs-sanity-amazona062022> git init
 - C:\ComputerD\nextjs-sanity-amazona062022> git status
 - C:\ComputerD\nextjs-sanity-amazona062022> git add .
@@ -294,6 +294,61 @@ const { darkMode } = state;
 </Box>
 - right after the above Box component added onto <ThemeProvider> component add Box component with Switch component nested inside it.
 - let implement darkModeChangeHandler function inside Switch component right before return section.
+- Push code to Github Remote 
+- C:\ComputerD\nextjs-sanity-amazona062022> git init
+- C:\ComputerD\nextjs-sanity-amazona062022> git status
+- C:\ComputerD\nextjs-sanity-amazona062022> git add .
+- C:\ComputerD\nextjs-sanity-amazona062022> git commit -m "sanity-amazona 4"
+- C:\ComputerD\nextjs-sanity-amazona062022> git push -u origin main
+
+Implement Add to cart
+1. define cart in context
+2. dispatch add to cart action
+3. set click event handler for button
+4. show cart items in the header menu
+- open utils/Store.js file to add cart object onto initialState object inorder to fetch cartItems from Cookie storage like this 
+const initialState = {
+  darkMode: Cookies.get('darkMode') === 'ON' ? true : false,
+  cart: {
+    cartItems: Cookies.get('cartItems')
+      ? JSON.parse(Cookies.get('cartItems'))
+      : [],
+  },
+};
+- open pages/product/[slug].js to find Add to cart button then add addToCartHandler() onto onClick event of Button component like this
+<Button onClick={addToCartHandler} fullWidth variant="contained">Add to cart</Button>
+- implement addToCartHandler() function right before return section
+- fetch cart from Context Api store right before useState() like this 
+const {state: { cart }, dispatch} = useContext(Store);
+- use cart object inside addToCartHandler() function
+- create products folder inside pages/api folder
+- create [id].js file inside api/products folder inorder to implement backend api 
+- install next-connect library its enable us implement backend api in nextjs
+- install axios library inorder to send ajax request to backend like this
+C:\ComputerD\nextjs-sanity-amazona062022> npm install next-connect@0.12.2 axios@0.27.2 --force
+- setup [id].js dynamic route 
+- install notistack library inorder to display messages to user like this 
+ C:\ComputerD\nextjs-sanity-amazona062022> npm i notistack@2.0.5 --force
+- import { useSnackbar } from 'notistack'; onto [slug].js file
+- use useSnackbar() method right before useState() react hooks like this
+const { enqueueSnackbar } = useSnackbar();
+- use enqueueSnackbar to render message in addToCartHandler() function
+- open _app.js file to wrap <SnackbarProvider> around the <StoreProvider> component inoreder to make the Snackbar avaliable to all the components in the app like this
+<SnackbarProvider>
+   <StoreProvider anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+     <Component {...pageProps} />;
+   </StoreProvider>
+</SnackbarProvider>
+- import { SnackbarProvider } from 'notistack'; onto _app.js file
+- open utils/Store.js to define case for cart to add cart item onto Context Api store and Cookie right before default keyword 
+- let checkout the functionality by click on ADD TO CART button and view Snackbar message on the browser.
+- Push code to Github Remote 
+- C:\ComputerD\nextjs-sanity-amazona062022> git init
+- C:\ComputerD\nextjs-sanity-amazona062022> git status
+- C:\ComputerD\nextjs-sanity-amazona062022> git add .
+- C:\ComputerD\nextjs-sanity-amazona062022> git commit -m "sanity-amazona 5"
+- C:\ComputerD\nextjs-sanity-amazona062022> git push -u origin main
+
 
 
 
