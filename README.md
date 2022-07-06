@@ -46,3 +46,11 @@
     2. dispatch add to cart action
     3. set click event handler for button
     4. show cart items in the header menu
+11. Create Cart Screen
+    1. get cart items from context
+    2. render in the screen
+12. Create Header Menu
+    1. add cart link to header
+    2. show cart items badge in header
+    3. add login link to header
+    4. implement add to cart in home page

@@ -340,7 +340,7 @@ const { enqueueSnackbar } = useSnackbar();
    </StoreProvider>
 </SnackbarProvider>
 - import { SnackbarProvider } from 'notistack'; onto _app.js file
-- open utils/Store.js to define case for cart to add cart item onto Context Api store and Cookie right before default keyword 
+- open utils/Store.js to define CART_ADD_ITEM action type to add cart item onto Context Api store and Cookie right before default keyword 
 - let checkout the functionality by click on ADD TO CART button and view Snackbar message on the browser.
 - Push code to Github Remote 
 - C:\ComputerD\nextjs-sanity-amazona062022> git init
@@ -349,7 +349,60 @@ const { enqueueSnackbar } = useSnackbar();
 - C:\ComputerD\nextjs-sanity-amazona062022> git commit -m "sanity-amazona 5"
 - C:\ComputerD\nextjs-sanity-amazona062022> git push -u origin main
 
+Create Cart Screen
+    1. get cart items from context
+    2. render in the screen 
+- create cart.js file inside pages folder to setup cart screen component
+- setup cart.js 
+- create updateCartHandler() and removeItemHandler() function right before return section
+- use  const router = userRouter(); right before const {slug} = props; inside [slug].js file 
+- open [slug].js file to redirect user to cart screen once user click on Add to Cart button right after  enqueueSnackbar(`${product.name} added to the cart`, {}) like this 
+router.push('/cart');
+- open utils/Store.js to implement this dispatch 'CART_REMOVE_ITEM' action type 
+- let test the delete button in cart to see it remove item from cookie
+- implement updateCartHandler() function inside cart.js file inorder to update the quantity selected by the user.
+- let checkout the result on the browser
 
+Create Header Menu
+    1. add cart link to header
+    2. show cart items badge in header
+    3. add login link to header
+    4. implement add to cart in home page
+- open components/Layout.js file inorder
+ * to fetch cart object from Context store at the beginning of the Layout component  like this 
+  const { darkMode, cart } = state;
+ * scroll down to right after Switch component to add NextLink component like this
+	<NextLink href="/cart" passHref>
+           <Link>
+              <Typography >
+                 {cart.cartItems.length > 0 ? (
+                   <Badge
+                        color="secondary"
+                        badgeContent={cart.cartItems.length}
+                      >
+                        Cart
+                      </Badge>
+                    ) : (
+                      'Cart'
+                    )}
+               </Typography>
+            </Link>
+        </NextLink>
+- let activite ADD TO CART button in the Home screen by opening index.js file and implement addToCartHandler() function right before return selection
+- fetch cart from Context store at the beginning of Home component like this
+const {state: { cart }, dispatch} = useContext(Store);
+- add snackbar right after cart object in index.js file like this
+const { enqueueSnackbar } = useSnackbar();
+- add useRouter() right after snackbar like this
+const router = useRouter();
+- go to ProductItem component inside index.js file to pass addToCartHandler as a props value like this 
+- open ProductItem component to pass addToCartHandler as an argument onto ProductItem component and use the argument on the Button component like this  
+<Button
+   size="small"
+   color="primary"
+   onClick={() => addToCartHandler(product)}
+>Add to cart</Button>
+- let checkout the result on the browser
 
 
 

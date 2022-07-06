@@ -22,8 +22,10 @@ import { urlFor, urlForThumbnail } from '../../utils/image';
 import axios from 'axios';
 import { Store } from '../../utils/Store';
 import Cookies from 'js-cookie';
+import { useRouter } from 'next/router';
 
 export default function ProductScreen(props) {
+  const router = useRouter();
   const { slug } = props; //props is coming from predefined getServerSideProps() function
   const {
     state: { cart },
@@ -77,6 +79,7 @@ export default function ProductScreen(props) {
     enqueueSnackbar(`${product.name} added to the cart`, {
       variant: 'success',
     });
+    router.push('/cart'); //redirect user to cart screen
   };
 
   //title={product?.title} means if product is null don't raise an error just return null

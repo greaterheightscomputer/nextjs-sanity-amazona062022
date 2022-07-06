@@ -31,6 +31,13 @@ function reducer(state, action) {
       Cookies.set('cartItems', JSON.stringify(cartItems));
       return { ...state, cart: { ...state.cart, cartItems } }; //...state means return previous state, cart: { ...state.cart, return previous state of ...state.cart and update cartItems object based on the changes in cartItems
     }
+    case 'CART_REMOVE_ITEM': {
+      const cartItems = state.cart.cartItems.filter(
+        (item) => item._key !== action.payload._key
+      );
+      Cookies.set('cartItems', JSON.stringify(cartItems));
+      return { ...state, cart: { ...state.cart, cartItems } };
+    }
     default:
       return state;
   }
