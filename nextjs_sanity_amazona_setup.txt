@@ -366,8 +366,7 @@ router.push('/cart');
 Create Header Menu
     1. add cart link to header
     2. show cart items badge in header
-    3. add login link to header
-    4. implement add to cart in home page
+    3. implement add to cart in home page
 - open components/Layout.js file inorder
  * to fetch cart object from Context store at the beginning of the Layout component  like this 
   const { darkMode, cart } = state;
@@ -403,7 +402,41 @@ const router = useRouter();
    onClick={() => addToCartHandler(product)}
 >Add to cart</Button>
 - let checkout the result on the browser
+- Push code to Github Remote 
+- C:\ComputerD\nextjs-sanity-amazona062022> git init
+- C:\ComputerD\nextjs-sanity-amazona062022> git status
+- C:\ComputerD\nextjs-sanity-amazona062022> git add .
+- C:\ComputerD\nextjs-sanity-amazona062022> git commit -m "sanity-amazona 6"
+- C:\ComputerD\nextjs-sanity-amazona062022> git push -u origin main
 
+Create Login and Register Screen
+    1. create login form
+    2. create register form
+- create login.js file inside pages folder
+- setup login.js file by typing rfc
+- change the function name from login to LoginScreen
+- let install react-hook-form library inorder to handler form setup, form validation and form submit like this
+C:\ComputerD\nextjs-sanity-amazona062022> npm i react-hook-form --force
+- use react-hook-form in login.js file
+- create Form.js file inside components folder inorder to style the login form
+- use Form.js inside login.js file by importing Form
+- open Layout.js file to add login right after Cart link like this 
+<NextLink href="/login" passHref>
+   <Link>
+      <Typography component="span" variant="span">
+         Login
+       </Typography>
+   </Link>
+ </NextLink>
+- copy and past login.js and rename it to register.js file 
+- setup register component
+- let checkout the result on the browser
+- Push code to Github Remote 
+- C:\ComputerD\nextjs-sanity-amazona062022> git init
+- C:\ComputerD\nextjs-sanity-amazona062022> git status
+- C:\ComputerD\nextjs-sanity-amazona062022> git add .
+- C:\ComputerD\nextjs-sanity-amazona062022> git commit -m "sanity-amazona 7"
+- C:\ComputerD\nextjs-sanity-amazona062022> git push -u origin main
 
 
 

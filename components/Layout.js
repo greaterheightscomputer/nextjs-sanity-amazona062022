@@ -92,7 +92,7 @@ export default function Layout({ title, description, children }) {
 
               <NextLink href="/cart" passHref>
                 <Link>
-                  <Typography>
+                  <Typography component="span" variant="span">
                     {cart.cartItems.length > 0 ? (
                       <Badge
                         color="secondary"
@@ -103,6 +103,14 @@ export default function Layout({ title, description, children }) {
                     ) : (
                       'Cart'
                     )}
+                  </Typography>
+                </Link>
+              </NextLink>
+
+              <NextLink href="/login" passHref>
+                <Link>
+                  <Typography component="span" variant="span">
+                    Login
                   </Typography>
                 </Link>
               </NextLink>

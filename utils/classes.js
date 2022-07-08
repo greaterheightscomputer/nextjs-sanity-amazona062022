@@ -19,6 +19,7 @@ const classes = {
     '& a': {
       color: '#ffffff',
       marginLeft: 1,
+      paddingLeft: 1,
     },
   },
   toolbar: {
