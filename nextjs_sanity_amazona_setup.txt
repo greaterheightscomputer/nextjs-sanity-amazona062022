@@ -438,6 +438,103 @@ C:\ComputerD\nextjs-sanity-amazona062022> npm i react-hook-form --force
 - C:\ComputerD\nextjs-sanity-amazona062022> git commit -m "sanity-amazona 7"
 - C:\ComputerD\nextjs-sanity-amazona062022> git push -u origin main
 
+Implement User Register Api
+    1. create user model
+    2. create user create route api
+    3. use it in the register screen
+- go to sanity folder, click on schemas and create user.js file inorder to create a user model.
+- click on schemas/schema.js inorder to use user model 
+- go to sanity studio to view the user model create by click on http://localhost:3333 
+- we shall not create use from sanity studio but we shall use an api from sanity to create user
+- create users folder inside pages/api folder 
+- create register.js file inside pages/api/users folder inorder to create an api to register a user.
+- install bcryptjs to encrypt password enter by user like this
+C:\ComputerD\nextjs-sanity-amazona062022> npm i bcryptjs@2.4.3 --force
+- setup pages/api/users/register.js file 
+- create .env file in the root folder
+- to get sanity auth toke go to sanity.io/manage, 
+ * find your project sanity-amazona and click on it
+ * click on API tab
+ * click on Tokens
+ * click on Add API token
+ * Name: admin
+ * select Editor
+ * click on Save button
+- past the copied token from sanity.io onto .env SANITY_AUTH_TOKEN
+- let continue to setup register api 
+- install jsonwebtoken inorder to authenticate and authorize user request like this
+C:\ComputerD\nextjs-sanity-amazona062022> npm i jsonwebtoken --force
+- open .env to define JWT_SECRET key 
+- create auth.js file in utils folder 
+- use jsonwebtoken inside auth.js file 
+- create signToken() function in auth.js file 
+- import signToken() function inside register api 
+- open register screen inside pages folder to implement ajax request to send post request to this route post('/api/users/register', {
+        name,
+        email,
+        password,
+      });
+inside submitHandler() async function
+- use the following inside RegisterScreen component 
+  const { enqueueSnackbar } = useSnackbar();
+  const router = useRouter();
+  const { state, dispatch } = useContext(Store);
+  const { userInfo } = state;
+- use useEffect() react hook method to redirect user to HomeScreen if userInfo contain data.
+- open utils/Store.js file to add userInfo onto the initialState object like this
+userInfo: Cookies.get('userInfo')
+    ? JSON.parse(Cookies.get('userInfo'))
+    : null,
+- add 'USER_LOGIN' action type onto the reducer() function like this
+case 'USER_LOGIN':
+return { ...state, userInfo: action.payload };
+- add useInfo object onto destructure state inside Layout.js like this
+const { darkMode, cart, userInfo } = state;
+- open components/Layout.js file to check if userInfo exist then display user name in place of Login on the header menu right after Cart in the Layout.js file like this
+ {userInfo ? (
+                <NextLink href="/profile" passHref>
+                  <Link>
+                    <Typography component="span" variant="span">
+                      {userInfo.name}
+                    </Typography>
+                  </Link>
+                </NextLink>
+              ) : (
+                <NextLink href="/login" passHref>
+                  <Link>
+                    <Typography component="span" variant="span">
+                      Login
+                    </Typography>
+                  </Link>
+                </NextLink>
+              )}
+- let checkout the result on the browser by clicking on Login, click on Register then enter the fields value and click on Submit button
+- go to sanity studio to view the registered user on localhost:3333
+- click on Network tab on browser, click on register 
+ * click on Header to view Request URL: http://localhost:3000/api/users/register
+ * click on Payload to view request data send to backend which sanity cms like this
+  {name: "Khadijat", email: "khadijat@gmail.com", password: "123456"}
+	email: "khadijat@gmail.com"
+	name: "Khadijat"
+	password: "123456"
+ * click on Preview to view response data send from backend like this
+  {_id: "sGrqvfP2mxJ5kXjUtIOdoJ", name: "Khadijat", email: "khadijat@gmail.com", isAdmin: false,…}
+	email: "khadijat@gmail.com"
+	isAdmin: false
+	name: "Khadijat"
+	token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJzR3JxdmZQMm14SjVrWGpVdElPZG9KIiwibmFtZSI6Ik	toYWRpamF0IiwiZW1haWwiOiJraGFkaWphdEBnbWFpbC5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNjU3MjgwNTkwLCJleHAiOjE2NTk4NzI1OTB9.ej6TRikYhipOdwYHVvSilfCKWAa6yrExVxGcLXVjBjk"
+	_id: "sGrqvfP2mxJ5kXjUtIOdoJ"
+- Push code to Github Remote 
+- C:\ComputerD\nextjs-sanity-amazona062022> git init
+- C:\ComputerD\nextjs-sanity-amazona062022> git status
+- C:\ComputerD\nextjs-sanity-amazona062022> git add .
+- C:\ComputerD\nextjs-sanity-amazona062022> git commit -m "sanity-amazona 8"
+- C:\ComputerD\nextjs-sanity-amazona062022> git push -u origin main
+
+
+
+
+
 
 
 

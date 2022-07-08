@@ -21,7 +21,7 @@ import Cookies from 'js-cookie';
 
 export default function Layout({ title, description, children }) {
   const { state, dispatch } = useContext(Store);
-  const { darkMode, cart } = state;
+  const { darkMode, cart, userInfo } = state;
 
   const theme = createTheme({
     components: {
@@ -107,13 +107,23 @@ export default function Layout({ title, description, children }) {
                 </Link>
               </NextLink>
 
-              <NextLink href="/login" passHref>
-                <Link>
-                  <Typography component="span" variant="span">
-                    Login
-                  </Typography>
-                </Link>
-              </NextLink>
+              {userInfo ? (
+                <NextLink href="/profile" passHref>
+                  <Link>
+                    <Typography component="span" variant="span">
+                      {userInfo.name}
+                    </Typography>
+                  </Link>
+                </NextLink>
+              ) : (
+                <NextLink href="/login" passHref>
+                  <Link>
+                    <Typography component="span" variant="span">
+                      Login
+                    </Typography>
+                  </Link>
+                </NextLink>
+              )}
             </Box>
           </Toolbar>
         </AppBar>
