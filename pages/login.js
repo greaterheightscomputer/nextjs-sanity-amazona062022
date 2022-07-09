@@ -6,11 +6,17 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import Form from '../components/Form';
 import Layout from '../components/Layout';
 import NextLink from 'next/link';
+import { useSnackbar } from 'notistack';
+import axios from 'axios';
+import { Store } from '../utils/Store';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/router';
+import { getError } from '../utils/error';
 
 export default function LoginScreen() {
   const {
@@ -18,8 +24,30 @@ export default function LoginScreen() {
     control,
     formState: { errors },
   } = useForm();
+  const router = useRouter();
+  const { state, dispatch } = useContext(Store);
+  const { userInfo } = state;
 
-  const submitHandler = async ({ email, password }) => {};
+  useEffect(() => {
+    if (userInfo) {
+      router.push('/'); //once userInfo object contain info user will not be able to access register screen
+    }
+  }, [router, userInfo]);
+
+  const { enqueueSnackbar } = useSnackbar();
+  const submitHandler = async ({ email, password }) => {
+    try {
+      const { data } = await axios.post('/api/users/login', {
+        email,
+        password,
+      });
+      dispatch({ type: 'USER_LOGIN', payload: data });
+      Cookies.set('userInfo', JSON.stringify(data));
+      router.push('/');
+    } catch (err) {
+      enqueueSnackbar(getError(err), { variant: 'error' });
+    }
+  };
 
   return (
     <Layout title="Login">

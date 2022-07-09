@@ -531,10 +531,73 @@ const { darkMode, cart, userInfo } = state;
 - C:\ComputerD\nextjs-sanity-amazona062022> git commit -m "sanity-amazona 8"
 - C:\ComputerD\nextjs-sanity-amazona062022> git push -u origin main
 
-
-
-
-
+Implement User Login Api
+    1. create login api
+    2. use login api in login screen
+    3. implement logout
+- open loging.js inside pages folder to implement submitHandler() function
+- copy and past registry.js and rename it to login.js inside api/users folder inorder to setup login  api
+- open components/Layout.js inorder to create a button to logout
+ * go to where we are render userInfo section then change this
+<NextLink href="/profile" passHref>
+   <Link>
+      <Typography component="span" variant="span">
+         {userInfo.name}
+       </Typography>
+   </Link>
+</NextLink>
+to this
+<Typography component="span" variant="span">
+	     <Button
+                    aria-controls="simple-menu"
+                    aria-haspopup="true"
+                    sx={classes.navbarButton}
+                    onClick={loginClickHandler}
+                  >
+                    {userInfo.name}
+                  </Button>
+                  <Menu
+                    id="simple-menu"
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={loginMenuCloseHandler}
+                  >
+                    <MenuItem
+                      onClick={(e) => loginMenuCloseHandler(e, '/profile')}
+                    >
+                      Profile
+                    </MenuItem>
+                    <MenuItem onClick={logoutClickHandler}>Logout</MenuItem>
+                  </Menu>
+                </Typography>
+- open utils/classes.js to add navbarButton object for styling Button component 
+- const [anchorEl, setAnchorEl] = useState(null); right before return section
+- implement loginMenuCloseHandler() function right before return section
+- create router right before theme object like this 
+const router = useRouter();
+- implement loginClickHandler() function right after loginMenuCloseHandler() function
+- implement logoutClickHandler() function right after loginClickHandler() function 
+- open utils/Store.js to implement 'USER_LOGOUT' action type like this
+case 'USER_LOGOUT':
+ return { ...state, userInfo: null };
+- create error.js file inside utils folder
+- open RegisterScreen component to use getError() function right inside submitHandler() function
+like this 
+enqueueSnackbar(err.message, { variant: 'error' });
+to this
+ enqueueSnackbar(getError(err), { variant: 'error' });
+- let checkout the register screent then input already existing user to view the Email already exists render
+- open LoginScreen component to use getError() function like this 
+enqueueSnackbar(err.message, { variant: 'error' });
+to this 
+ enqueueSnackbar(getError(err), { variant: 'error' });
+- Push code to Github Remote 
+- C:\ComputerD\nextjs-sanity-amazona062022> git init
+- C:\ComputerD\nextjs-sanity-amazona062022> git status
+- C:\ComputerD\nextjs-sanity-amazona062022> git add .
+- C:\ComputerD\nextjs-sanity-amazona062022> git commit -m "sanity-amazona 9"
+- C:\ComputerD\nextjs-sanity-amazona062022> git push -u origin main
 
 
 
