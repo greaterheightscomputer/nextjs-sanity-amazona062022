@@ -25,14 +25,16 @@ export default function LoginScreen() {
     formState: { errors },
   } = useForm();
   const router = useRouter();
+  const { redirect } = router.query; //return the value store inside redirect string query
   const { state, dispatch } = useContext(Store);
   const { userInfo } = state;
 
   useEffect(() => {
     if (userInfo) {
-      router.push('/'); //once userInfo object contain info user will not be able to access register screen
+      // router.push('/'); //once userInfo object contain info user will not be able to access register screen
+      router.push(redirect || '/'); //once userInfo is true redirect user to the value store on redirect variable or HomeScreen
     }
-  }, [router, userInfo]);
+  }, [redirect, router, userInfo]);
 
   const { enqueueSnackbar } = useSnackbar();
   const submitHandler = async ({ email, password }) => {
@@ -43,7 +45,7 @@ export default function LoginScreen() {
       });
       dispatch({ type: 'USER_LOGIN', payload: data });
       Cookies.set('userInfo', JSON.stringify(data));
-      router.push('/');
+      router.push(redirect || '/');
     } catch (err) {
       enqueueSnackbar(getError(err), { variant: 'error' });
     }
@@ -125,7 +127,7 @@ export default function LoginScreen() {
           </ListItem>
           <ListItem>
             Do not have an account ?{'  '}
-            <NextLink href={'/register'} passHref>
+            <NextLink href={`/register?redirect=${redirect || '/'}`} passHref>
               <Link>Register</Link>
             </NextLink>
           </ListItem>

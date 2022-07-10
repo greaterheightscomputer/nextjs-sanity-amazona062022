@@ -24,7 +24,7 @@ import { Store } from '../utils/Store';
 import dynamic from 'next/dynamic';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
-import Cookies from 'js-cookie';
+import { useRouter } from 'next/router';
 
 function CartScreen() {
   const {
@@ -34,7 +34,7 @@ function CartScreen() {
     dispatch,
   } = useContext(Store);
   const { enqueueSnackbar } = useSnackbar();
-
+  const router = useRouter();
   const updateCartHandler = async (item, quantity) => {
     const { data } = await axios.get(`/api/products/${item._id}`);
     if (data.countInStock < quantity) {
@@ -160,7 +160,14 @@ function CartScreen() {
                   </Typography>
                 </ListItem>
                 <ListItem>
-                  <Button fullWidth color="primary" variant="contained">
+                  <Button
+                    onClick={() => {
+                      router.push('/shipping');
+                    }}
+                    fullWidth
+                    color="primary"
+                    variant="contained"
+                  >
                     Checkout
                   </Button>
                 </ListItem>

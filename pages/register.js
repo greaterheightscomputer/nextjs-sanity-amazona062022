@@ -26,15 +26,18 @@ export default function RegisterScreen() {
   } = useForm();
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
+  const { redirect } = router.query;
   const { state, dispatch } = useContext(Store);
   const { userInfo } = state;
 
   useEffect(() => {
     if (userInfo) {
-      router.push('/'); //once userInfo object contain info user will not be able to access register screen
+      // router.push('/'); //once userInfo object contain info user will not be able to access register screen
+      router.push(redirect || '/'); //once userInfo is true redirect user to the value store on redirect variable or HomeScreen
     }
-  }, [router, userInfo]);
+  }, [router, userInfo, redirect]);
 
+  //send ajax request to create user in sanity cms backend
   const submitHandler = async ({ name, email, password, confirmPassword }) => {
     if (password !== confirmPassword) {
       enqueueSnackbar("Passwords don't match", { variant: 'error' });
@@ -49,7 +52,7 @@ export default function RegisterScreen() {
       });
       dispatch({ type: 'USER_LOGIN', payload: data });
       Cookies.set('userInfo', JSON.stringify(data));
-      router.push('/');
+      router.push(redirect || '/'); //redirect user to the value store onto redirect or HomeScreen
     } catch (err) {
       enqueueSnackbar(getError(err), { variant: 'error' });
     }
@@ -189,7 +192,7 @@ export default function RegisterScreen() {
           </ListItem>
           <ListItem>
             Already have an account ?{'  '}
-            <NextLink href={'/login'} passHref>
+            <NextLink href={`/login?redirect=${redirect || '/'}`} passHref>
               <Link>Login</Link>
             </NextLink>
           </ListItem>

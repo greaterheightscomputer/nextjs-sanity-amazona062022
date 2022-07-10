@@ -599,6 +599,96 @@ to this
 - C:\ComputerD\nextjs-sanity-amazona062022> git commit -m "sanity-amazona 9"
 - C:\ComputerD\nextjs-sanity-amazona062022> git push -u origin main
 
+Create Shipping Screen
+    1. create shipping component
+    2. get address fields
+    3. implement submit handler
+    4. handle redirect
+- create shipping.js file in pages folder 
+- setup shipping.js by typing rfc 
+- create CheckoutWizard.js inside components folder and use it inside ShippingScreen component
+- copy name <ListItem> component from RegisterScreen to ShippingScreen component
+- change all the name values to fullName 
+- copy useForm() from RegisterScreen and past its right before return keyword in ShippingScreen 
+- fetch userInfo and shippingAddress from Context store like 
+const { state, dispatch } = useContext(Store);
+  const {
+    userInfo,
+    cart: { shippingAddress },
+  } = state;
+- use the fetched userInfo and shippingAddress object inside useEffect() like this
+  useEffect(() => {
+    if (!userInfo) {
+      return router.push('/login?redirect=/shipping'); //if user info does not exist redirect user to login and set the query string to redirect=/shipping which means once the user login then redirect user to shipping screen
+    }
+    // else or otherwise
+    setValue('fulName', shippingAddress.fullName);
+    setValue('address', shippingAddress.address);
+    setValue('city', shippingAddress.city);
+    setValue('postalCode', shippingAddress.postalCode);
+    setValue('country', shippingAddress.country);
+  }, [router, setValue, shippingAddress, userInfo]);
+- open utils/Store.js file to define shippingAddress object right inside cart object inside the initialState object like this
+cart: {
+    cartItems: Cookies.get('cartItems')
+      ? JSON.parse(Cookies.get('cartItems'))
+      : [],
+    shippingAddress: Cookies.get('shippingAddress')
+      ? JSON.parse(Cookies.get('shippingAddress'))
+      : {},
+  },
+- implement submitHandler() function right after useEffect() react method 
+- open cart.js file to add onClick event onto Checkout button to redirect user to shipping screen  like this 
+  <Button
+      onClick={() => {router.push('/shipping');}} fullWidth color="primary"             	      variant="contained">
+        Checkout
+  </Button>
+- const router = useRouter(); onto cartScreen right after const { enqueueSnackbar } = useSnackbar();
+- let checkout the result on the browser but make sure you are not loged in
+- let get the redirect value inside the loginScreent inorder to know where the screen to redirect user to like this 
+const { redirect } = router.query; //return the value store inside redirect string query
+- scroll down to submitHandler() function to change this 
+   router.push('/');
+to this
+ router.push(redirect || '/');
+- scroll down to Register link to change the href attribute of NextLink component from this 
+<NextLink href={'/register'} passHref> 
+to this 
+<NextLink href={`/register?redirect=${redirect || '/'}`} passHref>
+- open RegisterScreen to add this const { redirect } = router.query; right after router=useRouter() 
+- use the destructure redirect right after cookies inside submitHandler() from this 
+router.push('/'); to this router.push(redirect || '/');
+- scroll down on register screen to Login link to change this <NextLink href={'/login'} passHref> to this <NextLink href={`/login?redirect=${redirect || '/'}`} passHref>
+- open LoginScreen inside useEffect() react hook method change this router.push('/');  to this router.push(redirect || '/');
+- open RegisterScreen insdie useEffect() react hook method change this router.push('/');  to this router.push(redirect || '/');
+- let checkout shipping screen 
+- refresh the shipping screen the data inputed will still be on the input fields becos the data is stored onto cookies
+- add "SAVE_SHIPPING_ADDRESS" action type onto reducer inside Store.js file like this 
+case 'SAVE_SHIPPING_ADDRESS':
+      return {
+        ...state,
+        cart: { ...state.cart, shippingAddress: action.payload },
+      };
+- open components/Layout.js file to add remove shipping address from cookie once the user click on Logout on the browser like this 
+ Cookies.remove('shippingAddress');
+- back to Store.js to 'USER_LOGOUT' action type to add this
+case 'USER_LOGOUT':
+      return {
+        ...state,
+        userInfo: null,
+        cart: {
+          cartItems: [],
+          shippingAddress: {},
+        },
+      };
+- let checkout the result on the browser 
+- Push code to Github Remote 
+- C:\ComputerD\nextjs-sanity-amazona062022> git init
+- C:\ComputerD\nextjs-sanity-amazona062022> git status
+- C:\ComputerD\nextjs-sanity-amazona062022> git add .
+- C:\ComputerD\nextjs-sanity-amazona062022> git commit -m "sanity-amazona 10"
+- C:\ComputerD\nextjs-sanity-amazona062022> git push -u origin main
+
 
 
 
