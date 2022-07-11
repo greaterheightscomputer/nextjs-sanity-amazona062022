@@ -689,6 +689,40 @@ case 'USER_LOGOUT':
 - C:\ComputerD\nextjs-sanity-amazona062022> git commit -m "sanity-amazona 10"
 - C:\ComputerD\nextjs-sanity-amazona062022> git push -u origin main
 
+Create Payment Screen
+    1. create payment component
+    2. get payment method
+    3. implement submit handler
+- open .eslintrc.json to change it from 
+{
+  "extends": "next/core-web-vitals"
+}
+to this
+{
+  "env": { "browser": true, "node": true, "es6": true },
+  "extends": ["eslint:recommended", "next", "next/core-web-vitals"],
+  "rules": { "import/no-anonymous-default-export": 0 }
+}
+- create payment.js file in pages folder as a nested route
+- setup payment.js file by typing rfc
+- open Store.js file to add paymentMethod onto cart object of initial object like this
+paymentMethod: Cookies.get('paymentMethod')
+ ? Cookies.get('paymentMethod') : '',
+- add SAVE_PAYMENT_METHOD action type onto reducer() function like this 
+case 'SAVE_PAYMENT_METHOD':
+      return {
+        ...state,
+        cart: { ...state.cart, paymentMethod: action.payload },
+      };
+- open Layout.js to remove paymentMethod once user click on logout like this
+Cookies.remove('paymentMethod');
+- let checkout the result on the browser
+- Push code to Github Remote 
+- C:\ComputerD\nextjs-sanity-amazona062022> git init
+- C:\ComputerD\nextjs-sanity-amazona062022> git status
+- C:\ComputerD\nextjs-sanity-amazona062022> git add .
+- C:\ComputerD\nextjs-sanity-amazona062022> git commit -m "sanity-amazona 11"
+- C:\ComputerD\nextjs-sanity-amazona062022> git push -u origin main 
 
 
 

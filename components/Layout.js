@@ -75,12 +75,13 @@ export default function Layout({ title, description, children }) {
   const loginClickHandler = (e) => {
     setAnchorEl(e.currentTarget); //when user click on the menu its connect user menu with the ahchorEl
   };
-  const logoutClickHandler = (e) => {
+  const logoutClickHandler = () => {
     setAnchorEl(null);
     dispatch({ type: 'USER_LOGOUT' });
     Cookies.remove('userInfo');
     Cookies.remove('cartItems');
     Cookies.remove('shippingAddress');
+    Cookies.remove('paymentMethod');
     router.push('/'); //redirect user to HomeScreen
   };
 
