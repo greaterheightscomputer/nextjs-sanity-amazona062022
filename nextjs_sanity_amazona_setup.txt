@@ -724,5 +724,39 @@ Cookies.remove('paymentMethod');
 - C:\ComputerD\nextjs-sanity-amazona062022> git commit -m "sanity-amazona 11"
 - C:\ComputerD\nextjs-sanity-amazona062022> git push -u origin main 
 
+Create Place Order Screen
+    1. create place order component
+    2. preview order
+    3. create order model in sanity
+    4. create order on place order click handler
+- create placeorder.js file inside pages folder
+- setup placeorder.js file by typing rfc
+- implement placeOrderHandler() function right before return keyword
+- open Store.js to define 'CART_CLEAR' action type right after 'CART_REMOVE_ITEM' action type like this
+case 'CART_CLEAR':
+      return { ...state, cart: { ...state.cart, cartItems: [] } };
+- let checkout the result on the browser
+- let implement '/api/orders' route by first start with creating model for order inside sanity/schemas folder 
+- copy and past product.js then rename it to order.js 
+- setup sanity/schemas/order.js 
+- create orderItem.js model inside sanity/schemas folder
+- setup orderItem.js 
+- create shippingAddress.js model inside sanity/schemas folder
+- setup shippingAddress.js 
+- create paymentResult.js model inside sanity/schemas folder
+- setup paymentResult.js 
+- add all the newly created model onto sanity/schemas/schema.js file 
+- implement api for order by create orders folder inside pages/api folder
+- create index.js file inside orders folder
+- create isAuth() middleware inside utils/auth.js file 
+- use isAuth() middleware function in pages/api/orders/index.js
+- let checkout the result on the browser
+- open sanity studio http://localhost:3333 to view the order model create via api
+- Push code to Github Remote 
+- C:\ComputerD\nextjs-sanity-amazona062022> git init
+- C:\ComputerD\nextjs-sanity-amazona062022> git status
+- C:\ComputerD\nextjs-sanity-amazona062022> git add .
+- C:\ComputerD\nextjs-sanity-amazona062022> git commit -m "sanity-amazona 12"
+- C:\ComputerD\nextjs-sanity-amazona062022> git push -u origin main 
 
 
