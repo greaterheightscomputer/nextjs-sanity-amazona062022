@@ -759,4 +759,21 @@ case 'CART_CLEAR':
 - C:\ComputerD\nextjs-sanity-amazona062022> git commit -m "sanity-amazona 12"
 - C:\ComputerD\nextjs-sanity-amazona062022> git push -u origin main 
 
-
+Create Order Screen
+    1. create order component
+    2. display order information
+- create order folder inside pages folder
+- create a dynamic route called [id].js inside pages/order folder
+- setup [id].js file by typing rfc then rename the component to OrderScreen component
+- implement getServerSideProps() at the end of OrderScreen component inorder to get order id from the url
+- implement reducer function before OrderScreen component
+- let implement the backend api to fetch order from sanity dataset by create [id] folder 
+- create index.js file inside pages/api/orders/[id] folder
+- setup index.js file inside pages/api/orders/[id] folder
+- let checkout the order screen on the browser 
+- Push code to Github Remote 
+- C:\ComputerD\nextjs-sanity-amazona062022> git init
+- C:\ComputerD\nextjs-sanity-amazona062022> git status
+- C:\ComputerD\nextjs-sanity-amazona062022> git add .
+- C:\ComputerD\nextjs-sanity-amazona062022> git commit -m "sanity-amazona 13"
+- C:\ComputerD\nextjs-sanity-amazona062022> git push -u origin main 
