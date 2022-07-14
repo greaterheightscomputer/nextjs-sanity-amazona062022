@@ -828,3 +828,13 @@ C:\ComputerD\nextjs-sanity-amazona062022> npm i @paypal/react-paypal-js --force
 - C:\ComputerD\nextjs-sanity-amazona062022> git add .
 - C:\ComputerD\nextjs-sanity-amazona062022> git commit -m "sanity-amazona 14"
 - C:\ComputerD\nextjs-sanity-amazona062022> git push -u origin main 
+
+Display Order History
+    1. create order history component
+    2. load orders of current user
+    3. render orders in the screen
+- create order-history component inside pages folder
+- setup order-history file by typing rfc and rename its to OrderHistoryScreen component 
+- next is to implement '/api/orders/history' in backend by history.js file inside pages/api/orders folder
+- open Layout.js file to add MenuItem component of Order History on the header section
+- let checkout the result by clicking on user name on the header, then click on Order History to view the Order History screen

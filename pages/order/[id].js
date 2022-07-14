@@ -248,7 +248,7 @@ function OrderScreen({ params }) {
                               <Typography>{item.quantity}</Typography>
                             </TableCell>
                             <TableCell align="right">
-                              <Typography>N{item.price}</Typography>
+                              <Typography>₦{item.price}</Typography>
                             </TableCell>
                           </TableRow>
                         ))}
@@ -272,7 +272,7 @@ function OrderScreen({ params }) {
                       <Typography>Items:</Typography>
                     </Grid>
                     <Grid item xs={6}>
-                      <Typography align="right">${itemsPrice}</Typography>
+                      <Typography align="right">₦{itemsPrice}</Typography>
                     </Grid>
                   </Grid>
                 </ListItem>
@@ -281,7 +281,7 @@ function OrderScreen({ params }) {
                     <Typography>Tax:</Typography>
                   </Grid>
                   <Grid item xs={6}>
-                    <Typography align="right">N{taxPrice}</Typography>
+                    <Typography align="right">₦{taxPrice}</Typography>
                   </Grid>
                 </ListItem>
                 <ListItem>
@@ -290,7 +290,7 @@ function OrderScreen({ params }) {
                       <Typography>Shipping:</Typography>
                     </Grid>
                     <Grid item xs={6}>
-                      <Typography align="right">N{shippingPrice}</Typography>
+                      <Typography align="right">₦{shippingPrice}</Typography>
                     </Grid>
                   </Grid>
                 </ListItem>
@@ -303,7 +303,7 @@ function OrderScreen({ params }) {
                     </Grid>
                     <Grid item xs={6}>
                       <Typography align="right">
-                        <strong>N{totalPrice}</strong>
+                        <strong>₦{totalPrice}</strong>
                       </Typography>
                     </Grid>
                   </Grid>
