@@ -838,3 +838,25 @@ Display Order History
 - next is to implement '/api/orders/history' in backend by history.js file inside pages/api/orders folder
 - open Layout.js file to add MenuItem component of Order History on the header section
 - let checkout the result by clicking on user name on the header, then click on Order History to view the Order History screen
+- Push code to Github Remote 
+- C:\ComputerD\nextjs-sanity-amazona062022> git init
+- C:\ComputerD\nextjs-sanity-amazona062022> git status
+- C:\ComputerD\nextjs-sanity-amazona062022> git add .
+- C:\ComputerD\nextjs-sanity-amazona062022> git commit -m "sanity-amazona 15"
+- C:\ComputerD\nextjs-sanity-amazona062022> git push -u origin main 
+
+Update User Profile
+    1. create profile screen
+    2. create input forms for name, email
+    3. update user info
+- create profile.js file inside pages folder
+- setup profile.js by typing rfc and rename it to ProfileScreen
+- next is to fetch userinfo from context store so that user can update user name, email and password
+- create this '/api/users/profile' backend route inorder to update user
+- create profile.js inside pages/api/users folder 
+- Push code to Github Remote 
+- C:\ComputerD\nextjs-sanity-amazona062022> git init
+- C:\ComputerD\nextjs-sanity-amazona062022> git status
+- C:\ComputerD\nextjs-sanity-amazona062022> git add .
+- C:\ComputerD\nextjs-sanity-amazona062022> git commit -m "sanity-amazona 16"
+- C:\ComputerD\nextjs-sanity-amazona062022> git push -u origin main 
