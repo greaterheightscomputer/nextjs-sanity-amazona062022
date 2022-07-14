@@ -3,6 +3,7 @@ import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
 import { StoreProvider } from '../utils/Store';
 import { SnackbarProvider } from 'notistack';
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 
 const clientSideEmotionCache = createCache({ key: 'css' });
 
@@ -16,8 +17,11 @@ function MyApp({
       <SnackbarProvider
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
+        {/*PayPalScriptProvider will be avaliable to all the components in our app. deferLoading={true} props will not load paypal default, it will be loaded by loadPaypalScript() function in OrderScreen*/}
         <StoreProvider>
-          <Component {...pageProps} />;
+          <PayPalScriptProvider deferLoading={true}>
+            <Component {...pageProps} />;
+          </PayPalScriptProvider>
         </StoreProvider>
       </SnackbarProvider>
     </CacheProvider>

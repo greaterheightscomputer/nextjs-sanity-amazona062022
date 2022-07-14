@@ -777,3 +777,54 @@ Create Order Screen
 - C:\ComputerD\nextjs-sanity-amazona062022> git add .
 - C:\ComputerD\nextjs-sanity-amazona062022> git commit -m "sanity-amazona 13"
 - C:\ComputerD\nextjs-sanity-amazona062022> git push -u origin main 
+
+Pay Order by PayPal
+    1. generate paypal client id
+    2. create api to return client id
+    3. install react-paypal-js
+    4. use PayPalScriptProvider in index.js
+    5. use usePayPalScriptReducer in Order Screen
+    6. implement loadPaypalScript function
+    7. render paypal button
+    8. implement onApprove payment function
+    9. create pay order api in backend
+- google search developer.paypal.com/home
+- click on Log in to Dashboard with email: adebarakhadijat@gmail.com and password: greater123*
+ * click on My Apps & Credentials
+ * click on Create App button
+ * App Name: mern-amazona-sanity
+ * click on Create App button
+ * copy the Client ID
+ * open env. file to past the client Id on PAYPAL_CLIENT_ID 
+- we need to create an api to return the client id to frontend by creating keys folder inside api folder
+- create paypal.js file inside pages/api/keys folder and setup 
+- install @paypal/react-paypal-js like this
+C:\ComputerD\nextjs-sanity-amazona062022> npm i @paypal/react-paypal-js --force
+- open pages/order/[id].js file which OrderScreen to load paypal client id from backend
+- import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js'; onto OrderScreen component
+- right before useEffect() inside OrderScreen component usePayPalScriptReducer() method
+- open pages/_app.js file and use PayPalScriptProvider component like this 
+	<StoreProvider>
+          <PayPalScriptProvider deferLoading={true}> 
+            <Component {...pageProps} />;
+          </PayPalScriptProvider>
+        </StoreProvider>
+- let conditional render PayPal button right after total inside OrderScreen component like this
+	<Box sx={classes.fullWidth}>
+          <PayPalButtons
+              createOrder={createOrder}
+              onApprove={onApprove}
+              onError={onError}
+            ></PayPalButtons>
+          </Box>
+- let create on createOrder(), onApprove() and onError() functions right before return 
+- let setup backend api for this route  `/api/orders/${orderId}/pay`, to update payment
+- create pay.js file inside pages/api/keys/orders/[id] folder
+- back to OrderScreent to add 'PAY_REQUEST', 'PAY_SUCCESS', 'PAY_FAIL' and 'PAY_RESET' action type onto reducer() function
+- let checkout the PayPal payment gateway on the browser
+- Push code to Github Remote 
+- C:\ComputerD\nextjs-sanity-amazona062022> git init
+- C:\ComputerD\nextjs-sanity-amazona062022> git status
+- C:\ComputerD\nextjs-sanity-amazona062022> git add .
+- C:\ComputerD\nextjs-sanity-amazona062022> git commit -m "sanity-amazona 14"
+- C:\ComputerD\nextjs-sanity-amazona062022> git push -u origin main 
