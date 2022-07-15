@@ -860,3 +860,32 @@ Update User Profile
 - C:\ComputerD\nextjs-sanity-amazona062022> git add .
 - C:\ComputerD\nextjs-sanity-amazona062022> git commit -m "sanity-amazona 16"
 - C:\ComputerD\nextjs-sanity-amazona062022> git push -u origin main 
+
+Create Search Screen
+    1. create search screen
+    2. implement search filters
+    3. list products
+- create search.js inside pages folder 
+- setup search.js by type rfc and rename its to SearchScreen component 
+- implement '/api/products/categories' route in backend by create categories.js file inside api/products folder 
+- open Layout.js to add handbuger on the header right before amazona by using IconButton component
+- right after amazona use Drawer component inside Layout.js
+- add Divider component right after CancelIcon component inside Layout.js
+- add useEffect() right before return section inside Layout.js
+- right after the Drawer component add Box component like this
+<Box sx={isDesktop ? classes.visble : classes.hidden}></Box>
+- add isDesktop variable right before return like this
+const isDesktop = useMediaQuery('(min-width:600px)');
+- let checkout the result on browser
+- Push code to Github Remote 
+- C:\ComputerD\nextjs-sanity-amazona062022> git init
+- C:\ComputerD\nextjs-sanity-amazona062022> git status
+- C:\ComputerD\nextjs-sanity-amazona062022> git add .
+- C:\ComputerD\nextjs-sanity-amazona062022> git commit -m "sanity-amazona 17"
+- C:\ComputerD\nextjs-sanity-amazona062022> git push -u origin main 
+
+Publish on Vercel
+    1. create vercel account
+    2. connect it to github
+    3. add vercel domain to allow origin in sanity
+    4. publish result
